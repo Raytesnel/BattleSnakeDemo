@@ -28,11 +28,20 @@ class MoveValidator:
         elif my_neck.y > my_head.y:
             self.safe_moves[Move.UP] = False
 
-    def avoid_moving_out_of_bounds(self):
-        # TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
-        # board_width = self.game_state.board.width
-        # board_height = self.game_state.board.height
-        raise NotImplementedError("Avoid moving out of bounds not implemented yet")
+    def avoid_moving_out_of_bounds(self)->None:
+        """Validate moves to avoid moving out of bounds"""
+        board_width = self.game_state.board.width
+        board_height = self.game_state.board.height
+        my_head = self.game_state.you.head
+        print(f"my_head:{my_head}, board_width:{board_width}, board_height:{board_height}")
+        if my_head.x - 1 <= 0:
+            self.safe_moves[Move.LEFT] = False
+        elif my_head.x +1 >= board_width:
+            self.safe_moves[Move.RIGHT] = False
+        elif my_head.y -1 <= 0:
+            self.safe_moves[Move.DOWN] = False
+        elif my_head.y +1 >= board_height:
+            self.safe_moves[Move.UP] = False
 
     def avoid_moving_into_body(self):
         # TODO: Step 2 - Prevent your Battlesnake from colliding with itself

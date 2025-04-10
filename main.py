@@ -15,10 +15,10 @@ def on_info() -> GameStats:
     """Customize your snake see https://play.battlesnake.com/customizations for more details """
     return GameStats(
         apiversion="1",
-        author="Qstars_worker_x",  # TODO: Your Battlesnake Username
-        color="#888888",  # TODO: Choose color
-        head="default",  # TODO: Choose head
-        tail="default",  # TODO: Choose tail
+        author="Demo_Guy",
+        color="#FF69B4",
+        head="antelope",
+        tail="beach-puffin",
     )
 
 
@@ -34,9 +34,11 @@ def on_move(game_state: GameState) -> SelectedMove:
     """Called on each turn of the game, here you can decide where to move your snake"""
     move_selector = MoveValidator(game_state)
     move_selector.avoid_moving_backwards()
+    move_selector.avoid_moving_out_of_bounds()
     try:
         return SelectedMove(move=move_selector.choose_random_safe_move())
     except NoSafeMovesException:
+        print("panic just go left")
         return SelectedMove(move=Move.LEFT)
 
 
